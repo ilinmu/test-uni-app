@@ -2,15 +2,17 @@
 	<view class="content">
 		<image class="logo" src="/static/logo.png"></image>
 		<view class="text-area">
-			<text class="title">{{title}}</text>
+			<text class="title">{{ token }}</text>
 		</view>
 	</view>
 </template>
 
 <script>
+  import { mapState, mapActions } from 'vuex';
 	import _ from 'lodash';
   
 	export default {
+    name: 'Login',
 		data() {
 			return {
 				title: 'Hello'
@@ -20,17 +22,25 @@
 			// const arr1 = [1,2,3];
 			// const arr2 = _.map(arr1, (item) => item + 1);
 			// console.warn('arr2', arr2);
-      this.queryApi();
+      this.queryLogin({
+        username: 'test',
+        password: 'test',
+        code: 'test',
+      })
 		},
+    computed: {
+      ...mapState({
+        // 使用方法见 https://vuex.vuejs.org/zh/guide/state.html
+        // 将 `this.login` 映射为 `this.$store.login.token`
+        token: (state) => state.login.token,
+      }),
+    },
 		methods: {
-      queryApi() {
-        console.warn('进入 queryApi');
-        this.$store.dispatch('login/queryLogin', {
-          username: 'test',
-          password: 'test',
-          code: 'test',
-        });
-      },
+      // 使用方法参照 https://vuex.vuejs.org/zh/guide/actions.html
+      // 将 `this.queryLogin(payload)` 映射为 `this.$store.dispatch('login/queryLogin', payload)`
+      ...mapActions({
+        queryLogin: 'login/queryLogin',
+      }),
 		}
 	}
 </script>

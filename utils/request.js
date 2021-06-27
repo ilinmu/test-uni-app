@@ -1,13 +1,14 @@
+import _ from 'lodash';
 import {
-  targetUrl,
-} from '@/config/constants';
+  whiteList,
+} from '@/config/request';
 
 export const get = (url, data, header = {}) => {
 	return new Promise((resolve, reject) => {
 		const token = uni.getStorageSync('token');
-		if (token) {
+		if (token || _.includes(whiteList, url)) {
 			uni.request({
-				url: targetUrl + url,
+				url,
 				data,
 				method: 'GET',
 				dataType: 'json'
@@ -38,10 +39,10 @@ export const get = (url, data, header = {}) => {
 
 export const post = (url, data, header = {}) => {
 	return new Promise((resolve, reject) => {
-		const token = uni.getStorageSync('token')
-		if (token) {
+		const token = uni.getStorageSync('token');
+		if (token || _.includes(whiteList, url)) {
 			uni.request({
-				url: targetUrl + url,
+				url,
 				data,
 				method: 'POST',
 				dataType: 'json',
@@ -75,10 +76,10 @@ export const post = (url, data, header = {}) => {
 
 export const upload = (url, data, header = {}) => {
 	return new Promise((resolve, reject) => {
-		const token = uni.getStorageSync('token')
-		if (token) {
+		const token = uni.getStorageSync('token');
+		if (token || _.includes(whiteList, url)) {
 			uni.uploadFile({
-				url: targetUrl + url,
+				url,
 				filePath: data,
 				formData: {
 					token: token,
