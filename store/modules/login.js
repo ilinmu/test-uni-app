@@ -15,7 +15,6 @@ const actions = {
           const token = result.data.token;
           commit('SET_TOKEN', token);
           uni.setStorageSync('token', token);
-          // uni.setStorageSync('role', role);
           resolve();
         })
         .catch((error) => {

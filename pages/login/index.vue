@@ -19,9 +19,6 @@
 			}
 		},
 		onLoad() {
-			// const arr1 = [1,2,3];
-			// const arr2 = _.map(arr1, (item) => item + 1);
-			// console.warn('arr2', arr2);
       this.queryLogin({
         username: 'test',
         password: 'test',
